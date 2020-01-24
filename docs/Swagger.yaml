@@ -1,57 +1,82 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
- 
-  version: "1.0.0"
-  title: "User Management"
-  
-host: "petstore.swagger.io"
-basePath: "/v2"
+  description: Story Management
+  version: 1.0.0
+  title: Story Management
+basePath: /
 tags:
-- name: "User"
-  description: "Registration User"
-  
+  - name: Story
+    description: Story Management
 schemes:
-- "https"
-- "http"
+  - http
+  - https
 paths:
- 
-  /user:
-    post:
-      tags:
-      - "user"
-      summary: "Register user"
-      description: "Creating new User"
-      operationId: "RegisterUser"
+  /stories:
+    get:
+
+      summary: Get all the stories available
+      description: ''
+      operationId: getStories
       produces:
-      - "application/xml"
-      - "application/json"
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+  /createStory:
+    post:
+      summary: Create new story
+      description: ''
+      operationId: create Story
+      produces:
+        - application/json
       parameters:
       - in: "body"
         name: "body"
-        description: "Registration user object"
+        description: "Story creation object"
         required: true
         schema:
-          $ref: "#/definitions/User"
+          $ref: "#/definitions/story"
       responses:
         201:
-          description: "New User Registered Successfully"
+          description: "New story created Successfully"
         404:
           description: "Invalid Request Data"
-  
+  /deleteStory:
+    delete:
+      summary: Delete the story
+      description: "Delete the story"
+      operationId: Delete Story
+      produces:
+        - application/json
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Story creation object"
+        required: true
+        schema:
+          $ref: "#/definitions/delete"
+      responses:
+        201:
+          description: "Story has been deleted successfully"
+        404:
+          description: "Invalid Request Data"
 definitions:
-  User:
+  story:
     type: "object"
     properties:
-      firstName:
+      userId:
         type: "string"
-      lastName:
+      title:
         type: "string"
-      email:
-        type: "string"
-      password:
-        type: "string"
-      phoneNumber:
+      storyBody:
         type: "string"
     xml:
       name: "User"
-  
+  delete:
+    type: "object"
+    properties:
+      userId:
+        type: "string"
+      storyId:
+        type: "string"
+      
