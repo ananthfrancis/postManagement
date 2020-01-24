@@ -4,6 +4,7 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const storyRoutes = require('./routes/index')
+const { resourceNotFound, accessDenied } = require('./controllers/storyManagement.controller')
 
 var index = require('./routes/index')
 
@@ -25,6 +26,10 @@ app.use(bodyParser.json({strict: false}))
 app.use(cookieParser())
 
 app.use('/api/sm', storyRoutes)
+
+app.use('/api/*', resourceNotFound)
+
+app.use('*', accessDenied)
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

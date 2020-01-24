@@ -61,9 +61,33 @@ async function deleteStory(req, res) {
   }
 }
 
+async function resourceNotFound(req, res) {
+
+  try {
+    //Default Route
+    return res.status(404)
+      .send({ message: "Resources your looking for is not available" })
+  } catch (e) {
+    res.status(500).send(e)
+  }
+}
+
+async function accessDenied(req, res) {
+
+  try {
+    //Access Denied
+    return res.status(401)
+      .send({ message: "You're not auhtorized. Please check API end point" })
+  } catch (e) {
+    res.status(500).send(e)
+  }
+}
+
 
 module.exports = {
   getStories,
   createStory,
-  deleteStory
+  deleteStory,
+  resourceNotFound,
+  accessDenied
 }
